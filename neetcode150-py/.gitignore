@@ -1,0 +1,14 @@
+# python generated files
+__pycache__/
+*.egg-info
+
+.ruff_cache
+.mypy_cache
+
+# pytest
+.coverage
+htmlcov
+.pytest_cache
+
+# venv
+.venv
