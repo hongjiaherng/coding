@@ -39,7 +39,7 @@ class Solution:
 
         return topk
 
-    def _topKFrequent(self, nums: List[int], k: int) -> List[int]:
+    def topKFrequent1(self, nums: List[int], k: int) -> List[int]:
         """
         T(n) = O(n + kn)
         S(n) = O(n)

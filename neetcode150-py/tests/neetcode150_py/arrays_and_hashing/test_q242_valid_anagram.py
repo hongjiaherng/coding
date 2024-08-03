@@ -5,3 +5,4 @@ def test_valid_anagram() -> None:
     solution = Solution()
     assert solution.isAnagram("anagram", "nagaram") is True
     assert solution.isAnagram("rat", "car") is False
+    assert solution.isAnagram("a", "ab") is False

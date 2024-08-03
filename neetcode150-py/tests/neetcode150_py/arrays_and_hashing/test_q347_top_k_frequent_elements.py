@@ -6,3 +6,11 @@ def test_top_k_frequent_elements() -> None:
 
     assert solution.topKFrequent([1, 1, 1, 2, 2, 3], 2) == [1, 2]
     assert solution.topKFrequent([1], 1) == [1]
+    assert solution.topKFrequent([1, 2, 3], 10) == [1, 2, 3]
+
+
+def test_top_k_frequent_elements1() -> None:
+    solution = Solution()
+
+    assert solution.topKFrequent1([1, 1, 1, 2, 2, 3], 2) == [1, 2]
+    assert solution.topKFrequent1([1], 1) == [1]

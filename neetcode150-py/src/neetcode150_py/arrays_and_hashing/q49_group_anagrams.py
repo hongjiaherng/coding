@@ -17,7 +17,7 @@ class Solution:
         group_list = list(group_map.values())
         return group_list
 
-    def _groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+    def groupAnagrams1(self, strs: List[str]) -> List[List[str]]:
         """
         T(n) = O(n * m log m)
         S(n) = O(n)
