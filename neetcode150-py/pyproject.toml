@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "neetcode150-py"
 version = "0.1.0"
-description = "Neetocde 150 Python solutions"
+description = "Neetcode 150 Python solutions"
 authors = [{ name = "jherng", email = "jiaherng2001@gmail.com" }]
 readme = "README.md"
 requires-python = ">= 3.9"
