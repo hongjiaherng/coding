@@ -6,7 +6,7 @@
 uv venv
 ./venv/Scripts/activate
 uv pip compile pyproject.toml -o requirements-dev.txt --extra=dev # uv pip compile pyproject.toml -o requirements.txt
-uv pip sync requirements.txt
+uv pip sync requirements-dev.txt # uv pip sync requirements.txt
 ```
 
 ```bash
