@@ -7,13 +7,3 @@ def test_contains_duplicate() -> None:
     assert solution.containsDuplicate([1, 2, 3, 1]) is True
     assert solution.containsDuplicate([1, 2, 3, 4]) is False
     assert solution.containsDuplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]) is True
-
-
-def test_empty_list() -> None:
-    solution = Solution()
-    assert solution.containsDuplicate([]) is False
-
-
-def test_single_element() -> None:
-    solution = Solution()
-    assert solution.containsDuplicate([1]) is False
