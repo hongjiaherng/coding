@@ -6,6 +6,7 @@ def test_valid_palindrome() -> None:
     assert solution.isPalindrome("A man, a plan, a canal: Panama") is True
     assert solution.isPalindrome("race a car") is False
     assert solution.isPalindrome(" ") is True
+    assert solution.isPalindrome("AB{[ba")
 
 
 def test_valid_palindrome1() -> None:
@@ -13,3 +14,4 @@ def test_valid_palindrome1() -> None:
     assert solution.isPalindrome1("A man, a plan, a canal: Panama") is True
     assert solution.isPalindrome1("race a car") is False
     assert solution.isPalindrome1(" ") is True
+    assert solution.isPalindrome1("AB{[ba")
