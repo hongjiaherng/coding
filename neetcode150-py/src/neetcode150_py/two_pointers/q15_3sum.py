@@ -3,6 +3,10 @@ from typing import List
 
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
+        """
+        T(n) = O(n log n) + O(n^2) = O(n^2)
+        S(n) = O(n)
+        """
         results: List[List[int]] = []
         nums.sort()
         for i in range(len(nums)):
