@@ -1,9 +1,12 @@
+use std::collections::HashSet;
+
 pub struct Solution;
 
 impl Solution {
+    /// - T(n) = O(n)
+    /// - S(n) = O(n)
     pub fn contains_duplicate(nums: Vec<i32>) -> bool {
-        use std::collections::HashSet;
-        let mut set = HashSet::new();
+        let mut set: HashSet<i32> = HashSet::new();
         for num in nums {
             if !set.insert(num) {
                 return true;
