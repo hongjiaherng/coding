@@ -17,19 +17,13 @@ class MinStack:
         self.stack.append(val)
 
     def pop(self) -> None:
-        if not self.stack:
-            raise Exception()
         self.min_stack.pop()
         self.stack.pop()
 
     def top(self) -> int:
-        if not self.stack:
-            raise Exception()
         return self.stack[-1]
 
     def getMin(self) -> int:
-        if not self.stack:
-            raise Exception()
         return self.min_stack[-1]
 
 

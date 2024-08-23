@@ -8,16 +8,13 @@ version = "0.1.0"
 description = "Neetcode 150 Python solutions"
 authors = [{ name = "jherng", email = "jiaherng2001@gmail.com" }]
 readme = "README.md"
-requires-python = ">= 3.9"
+requires-python = ">= 3.10"
 dependencies = []
 
 [project.optional-dependencies]
 lint = ["ruff", "mypy"]
 test = ["pytest", "pytest-cov"]
-dev = [
-    "neetcode150-py[test]", 
-    "neetcode150-py[lint]"
-]
+dev = ["neetcode150-py[test]", "neetcode150-py[lint]"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -27,7 +24,7 @@ pythonpath = ["src"]
 source = ["src/neetcode150_py"]
 
 [tool.coverage.report]
-fail_under = 80 
+fail_under = 80
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
@@ -64,8 +61,8 @@ exclude = [
 line-length = 88
 indent-width = 4
 
-# Assume Python 3.9
-target-version = "py39"
+# Assume Python 3.10
+target-version = "py310"
 
 [tool.ruff.lint]
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
@@ -109,7 +106,7 @@ docstring-code-format = false
 docstring-code-line-length = "dynamic"
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.10"
 warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true
