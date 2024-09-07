@@ -12,3 +12,4 @@ def test_timemap() -> None:
     print(obj.map)
     assert obj.get(key="foo", timestamp=4) == "bar2"
     assert obj.get(key="foo", timestamp=5) == "bar2"
+    assert obj.get(key="foo", timestamp=2) == "bar"
