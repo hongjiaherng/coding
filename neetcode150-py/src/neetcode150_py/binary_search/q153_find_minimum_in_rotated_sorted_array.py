@@ -4,7 +4,7 @@ from typing import List
 class Solution:
     def findMin(self, nums: List[int]) -> int:
         """
-        T(n) = O(n)
+        T(n) = O(log n)
         S(n) = O(1)
 
         [3, 4, 5, 1, 2]
