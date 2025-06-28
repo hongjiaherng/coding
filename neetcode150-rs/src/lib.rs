@@ -9,3 +9,8 @@ pub mod arrays_and_hashing {
 pub mod two_pointers {
     pub mod q125_valid_palindrome;
 }
+
+pub mod stack {
+    pub mod q20_valid_parentheses;
+    pub mod q155_min_stack;
+}
