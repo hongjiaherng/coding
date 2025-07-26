@@ -13,4 +13,5 @@ pub mod two_pointers {
 pub mod stack {
     pub mod q20_valid_parentheses;
     pub mod q155_min_stack;
+    pub mod q150_evaluate_reverse_polish_notation;
 }
