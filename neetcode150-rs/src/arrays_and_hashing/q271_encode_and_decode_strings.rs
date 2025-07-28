@@ -2,11 +2,30 @@ pub struct Solution;
 
 impl Solution {
     pub fn encode(strs: Vec<String>) -> String {
-        todo!();
+        strs.into_iter()
+            .map(|s| format!("{}#{}", s.len(), s))
+            .collect()
     }
 
     pub fn decode(s: String) -> Vec<String> {
-        todo!()
+        // Look for digit#
+        let mut decoded: Vec<String> = Vec::new();
+        let mut i = 0;
+        let chars: Vec<char> = s.chars().collect();
+
+        while i < chars.len() {
+            let mut j = i;
+            while chars[j] != '#' {
+                j += 1;
+            }
+
+            let wordlen: usize = chars[i..j].iter().collect::<String>().parse().unwrap();
+            j += 1; // skip the '#'
+
+            decoded.push(chars[j..j + wordlen].iter().collect());
+            i = j + wordlen;
+        }
+        decoded
     }
 }
 
