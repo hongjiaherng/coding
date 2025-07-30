@@ -1,8 +1,84 @@
+use std::collections::{HashMap, HashSet};
+
 pub struct Solution;
 
 impl Solution {
     pub fn is_valid_sudoku(board: Vec<Vec<char>>) -> bool {
-        todo!();
+        let mut rowmap: HashMap<usize, HashSet<char>> = HashMap::new();
+        let mut colmap: HashMap<usize, HashSet<char>> = HashMap::new();
+        let mut subboxmap: HashMap<(usize, usize), HashSet<char>> = HashMap::new();
+
+        for (row_idx, row) in board.iter().enumerate() {
+            for (col_idx, &ch) in row.iter().enumerate() {
+                if ch == '.' {
+                    continue;
+                }
+
+                if rowmap.get(&row_idx).map_or(false, |s| s.contains(&ch))
+                    || colmap.get(&col_idx).map_or(false, |s| s.contains(&ch))
+                    || subboxmap
+                        .get(&(row_idx / 3, col_idx / 3))
+                        .map_or(false, |s| s.contains(&ch))
+                {
+                    return false;
+                }
+
+                rowmap.entry(row_idx).or_default().insert(ch);
+                colmap.entry(col_idx).or_default().insert(ch);
+                subboxmap
+                    .entry((row_idx / 3, col_idx / 3))
+                    .or_default()
+                    .insert(ch);
+            }
+        }
+
+        true
+    }
+
+    pub fn is_valid_sudoku_3loops(board: Vec<Vec<char>>) -> bool {
+        // T(n) = O(9^2)
+        // S(n) = O(9)
+        let mut set: HashSet<char> = HashSet::new();
+
+        // Check horizontally
+        for i in 0..board.len() {
+            for j in 0..board.len() {
+                if set.contains(&board[i][j]) && board[i][j] != '.' {
+                    return false;
+                }
+                set.insert(board[i][j]);
+            }
+            set.clear();
+        }
+
+        // Check vertically
+        for i in 0..board.len() {
+            for j in 0..board.len() {
+                if set.contains(&board[j][i]) && board[j][i] != '.' {
+                    return false;
+                }
+                set.insert(board[j][i]);
+            }
+            set.clear();
+        }
+
+        // Check sub-box wise
+        for i in 0..board.len() {
+            // Loop thru each 3x3 sub-boxes
+            let row_forward = 3 * (i / 3);
+            let col_forward = 3 * (i % 3);
+            for j in 0..board.len() {
+                // Loop within each 3x3 sub-boxes
+                let cur_cell = board[(j / 3) + row_forward][(j % 3) + col_forward];
+                if set.contains(&cur_cell) && cur_cell != '.' {
+                    return false;
+                }
+                set.insert(cur_cell);
+            }
+            set.clear();
+        }
+
+        true
     }
 }
 
