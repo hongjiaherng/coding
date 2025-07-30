@@ -35,7 +35,7 @@ impl Solution {
         true
     }
 
-    pub fn is_valid_sudoku_3loops(board: Vec<Vec<char>>) -> bool {
+    pub fn is_valid_sudoku_3passes(board: Vec<Vec<char>>) -> bool {
         // T(n) = O(9^2)
         // S(n) = O(9)
         let mut set: HashSet<char> = HashSet::new();
