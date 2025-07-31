@@ -1,8 +1,26 @@
+use std::collections::HashSet;
+
 pub struct Solution;
 
 impl Solution {
     pub fn longest_consecutive(nums: Vec<i32>) -> i32 {
-        todo!();
+        let set: HashSet<i32> = nums.iter().copied().collect();
+        let mut max_seq_len = 0;
+
+        for &num in &set {
+            if set.contains(&(num - 1)) {
+                // this num is not a seq head
+                continue;
+            }
+            // this num is a seq head, keep searching up
+            let mut cur_seq_len = 1;
+            while set.contains(&(num + cur_seq_len)) {
+                cur_seq_len += 1;
+            }
+
+            max_seq_len = max_seq_len.max(cur_seq_len);
+        }
+        max_seq_len
     }
 }
 
