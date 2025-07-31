@@ -4,7 +4,7 @@ pub struct Solution;
 
 impl Solution {
     pub fn longest_consecutive(nums: Vec<i32>) -> i32 {
-        let set: HashSet<i32> = nums.iter().copied().collect();
+        let set: HashSet<i32> = HashSet::from_iter(nums);
         let mut max_seq_len = 0;
 
         for &num in &set {
