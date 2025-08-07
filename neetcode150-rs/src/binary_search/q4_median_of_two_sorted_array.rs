@@ -8,7 +8,7 @@ impl Solution {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::binary_search::q4_median_of_two_sorted_array::Solution;
 
     #[test]
     fn test_find_median_sorted_arrays() {

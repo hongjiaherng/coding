@@ -8,7 +8,7 @@ impl Solution {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::binary_search::q153_find_minimum_in_rotated_sorted_array::Solution;
 
     #[test]
     fn test_find_min() {

@@ -8,7 +8,7 @@ impl Solution {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::binary_search::q875_koko_eating_bananas::Solution;
 
     #[test]
     fn test_min_eating_speed() {

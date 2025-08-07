@@ -37,3 +37,12 @@ pub mod binary_search {
     pub mod q875_koko_eating_bananas;
     pub mod q981_time_based_key_value_store;
 }
+
+pub mod sliding_window {
+    pub mod q121_best_time_to_buy_and_sell_stock;
+    pub mod q239_sliding_window_maximum;
+    pub mod q3_longest_substring_without_repeating_characters;
+    pub mod q424_longest_repeating_character_replacement;
+    pub mod q567_permutation_in_string;
+    pub mod q76_minimum_window_substring;
+}
