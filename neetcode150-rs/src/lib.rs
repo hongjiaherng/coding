@@ -46,3 +46,17 @@ pub mod sliding_window {
     pub mod q567_permutation_in_string;
     pub mod q76_minimum_window_substring;
 }
+
+pub mod linked_list {
+    pub mod q138_copy_list_with_random_pointer;
+    pub mod q141_linked_list_cycle;
+    pub mod q143_reorder_list;
+    pub mod q146_lru_cache;
+    pub mod q19_remove_nth_node_from_end_of_list;
+    pub mod q206_reverse_linked_list;
+    pub mod q21_merge_two_sorted_lists;
+    pub mod q23_merge_k_sorted_lists;
+    pub mod q25_reverse_nodes_in_k_group;
+    pub mod q287_find_the_duplicate_number;
+    pub mod q2_add_two_numbers;
+}
