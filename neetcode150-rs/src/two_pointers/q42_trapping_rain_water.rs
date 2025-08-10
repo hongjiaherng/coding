@@ -2,7 +2,43 @@ pub struct Solution;
 
 impl Solution {
     pub fn trap(height: Vec<i32>) -> i32 {
-        todo!();
+        let mut vol = 0;
+        let (mut l, mut r) = (0, height.len() - 1);
+        let (mut prefix, mut suffix) = (height[l], height[r]);
+
+        while l < r {
+            if height[l] <= height[r] {
+                l += 1;
+                prefix = prefix.max(height[l]);
+                vol += prefix - height[l];
+            } else {
+                r -= 1;
+                suffix = suffix.max(height[r]);
+                vol += suffix - height[r];
+            }
+        }
+
+        vol
+    }
+
+    pub fn trap_monotonic_stack(height: Vec<i32>) -> i32 {
+        let mut prefix: Vec<i32> = height.clone();
+        let mut suffix: Vec<i32> = height.clone();
+        let mut vol = 0;
+
+        for i in 1..height.len() {
+            prefix[i] = prefix[i - 1].max(height[i]);
+        }
+
+        for i in (0..height.len() - 1).rev() {
+            suffix[i] = suffix[i + 1].max(height[i]);
+        }
+
+        for i in 0..height.len() {
+            vol += prefix[i].min(suffix[i]) - height[i];
+        }
+
+        vol
     }
 }
 
