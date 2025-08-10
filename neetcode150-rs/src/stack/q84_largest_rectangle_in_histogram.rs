@@ -2,7 +2,24 @@ pub struct Solution;
 
 impl Solution {
     pub fn largest_rectangle_area(heights: Vec<i32>) -> i32 {
-        todo!();
+        let mut stack: Vec<(usize, i32)> = Vec::new();
+        let mut max_area = 0;
+
+        for i in 0..heights.len() {
+            let mut start = i;
+            while !stack.is_empty() && heights[i] < stack.last().unwrap().1 {
+                let (j, heights_j) = stack.pop().unwrap();
+                max_area = max_area.max(heights_j * (i - j) as i32);
+                start = j;
+            }
+            stack.push((start, heights[i]));
+        }
+
+        while let Some((j, h)) = stack.pop() {
+            max_area = max_area.max(h * (heights.len() - j) as i32);
+        }
+
+        max_area
     }
 }
 
