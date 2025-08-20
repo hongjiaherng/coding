@@ -35,6 +35,19 @@ impl Solution {
     }
 }
 
+/**
+ * Integer division trick to eliminate the need to convert pile & k to f64
+ * -----------------------------------------------------------------------
+ *
+ * If pile is divisible by k, say pile = q * k, then:
+ * (pile + k - 1) / k = (q * k + k - 1) / k = q  // since integer division truncates
+ *
+ * If pile is not divisible by k, say pile = q * k + r with 0 < r < k, then:
+ * (pile + k - 1) / k = (q * k + r + k - 1) / k
+ *                    = (q * k + (r + k - 1)) / k
+ *                    = q + 1   // since r + k - 1 ≥ k
+ */
+
 #[cfg(test)]
 mod tests {
     use crate::binary_search::q875_koko_eating_bananas::Solution;
