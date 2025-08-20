@@ -2,7 +2,36 @@ pub struct Solution;
 
 impl Solution {
     pub fn search(nums: Vec<i32>, target: i32) -> i32 {
-        todo!();
+        let mut left: i32 = 0;
+        let mut right: i32 = (nums.len() - 1) as i32;
+
+        while left <= right {
+            let mid = (right - left) / 2 + left;
+            if target < nums[mid as usize] {
+                right = mid - 1;
+            } else if target > nums[mid as usize] {
+                left = mid + 1;
+            } else {
+                return mid;
+            }
+        }
+        -1
+    }
+
+    pub fn rusty_search(nums: Vec<i32>, target: i32) -> i32 {
+        use std::cmp::Ordering;
+        let mut left: i32 = 0;
+        let mut right: i32 = (nums.len() - 1) as i32;
+
+        while left <= right {
+            let mid = left + (right - left) / 2;
+            match nums[mid as usize].cmp(&target) {
+                Ordering::Equal => return mid,
+                Ordering::Less => left = mid + 1,
+                Ordering::Greater => right = mid - 1,
+            }
+        }
+        -1
     }
 }
 
@@ -30,5 +59,47 @@ mod tests {
         let nums = vec![-1, 0, 3, 5, 9, 12];
         let target = 2;
         assert_eq!(Solution::search(nums, target), -1);
+    }
+
+    #[test]
+    fn test_search_example_3() {
+        let nums = vec![5];
+        let target = -5;
+        assert_eq!(Solution::search(nums, target), -1);
+    }
+
+    #[test]
+    fn test_search_example_4() {
+        let nums = vec![5];
+        let target = 5;
+        assert_eq!(Solution::search(nums, target), 0);
+    }
+
+    #[test]
+    fn test_rusty_search_example_1() {
+        let nums = vec![-1, 0, 3, 5, 9, 12];
+        let target = 9;
+        assert_eq!(Solution::rusty_search(nums, target), 4);
+    }
+
+    #[test]
+    fn test_rusty_search_example_2() {
+        let nums = vec![-1, 0, 3, 5, 9, 12];
+        let target = 2;
+        assert_eq!(Solution::rusty_search(nums, target), -1);
+    }
+
+    #[test]
+    fn test_rusty_search_example_3() {
+        let nums = vec![5];
+        let target = -5;
+        assert_eq!(Solution::rusty_search(nums, target), -1);
+    }
+
+    #[test]
+    fn test_rusty_search_example_4() {
+        let nums = vec![5];
+        let target = 5;
+        assert_eq!(Solution::rusty_search(nums, target), 0);
     }
 }
