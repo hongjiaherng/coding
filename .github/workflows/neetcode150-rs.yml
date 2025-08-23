@@ -1,14 +1,14 @@
-name: Neetcode 150 with Rust
+name: neetcode150-rs CI
 
 on:
   push:
     paths:
-      - "./neetcode150-rs/**"
-      - "./.github/workflows/neetcode150-rs.yml"
+      - "neetcode150-rs/**"
+      - ".github/workflows/neetcode150-rs.yml"
   pull_request:
     paths:
-      - "./neetcode150-rs/**"
-      - "./.github/workflows/neetcode150-rs.yml"
+      - "neetcode150-rs/**"
+      - ".github/workflows/neetcode150-rs.yml"
   workflow_dispatch: # allow manual trigger
 
 env:
