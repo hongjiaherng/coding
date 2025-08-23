@@ -3,12 +3,13 @@ name: Neetcode 150 with Rust
 on:
   push:
     paths:
-      - './neetcode150-rs/**'
-      - './.github/workflows/neetcode150-rs.yml'
+      - "./neetcode150-rs/**"
+      - "./.github/workflows/neetcode150-rs.yml"
   pull_request:
     paths:
-      - './neetcode150-rs/**'
-      - './.github/workflows/neetcode150-rs.yml'
+      - "./neetcode150-rs/**"
+      - "./.github/workflows/neetcode150-rs.yml"
+  workflow_dispatch: # allow manual trigger
 
 env:
   CARGO_TERM_COLOR: always
@@ -21,8 +22,8 @@ jobs:
         working-directory: ./neetcode150-rs
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build
-      run: cargo build --verbose
-    - name: Run tests
-      run: cargo test --verbose
+      - uses: actions/checkout@v4
+      - name: Build
+        run: cargo build --verbose
+      - name: Run tests
+        run: cargo test --verbose
