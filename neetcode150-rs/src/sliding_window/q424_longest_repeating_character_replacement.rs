@@ -3,6 +3,29 @@ use std::collections::HashMap;
 pub struct Solution;
 
 impl Solution {
+    pub fn character_replacement_optimized(s: String, k: i32) -> i32 {
+        let chars = s.as_bytes();
+        let mut count = [0; 26];
+        let mut longest = 0;
+        let mut left = 0;
+        let mut max_count = 0;
+
+        for right in 0..chars.len() {
+            let index = (chars[right] - b'A') as usize;
+            count[index] += 1;
+            max_count = max_count.max(count[index]);
+
+            while (right - left + 1 - max_count) as i32 > k {
+                let left_index = (chars[left] - b'A') as usize;
+                count[left_index] -= 1;
+                left += 1;
+            }
+
+            longest = longest.max((right - left + 1) as i32);
+        }
+        longest
+    }
+
     /// T(n) = O(n)
     pub fn character_replacement(s: String, k: i32) -> i32 {
         let chars: Vec<char> = s.chars().collect();
@@ -51,6 +74,20 @@ impl Solution {
 #[cfg(test)]
 mod tests {
     use crate::sliding_window::q424_longest_repeating_character_replacement::Solution;
+
+    #[test]
+    fn test_character_replacement_optimized_example1() {
+        let s = "ABAB".to_string();
+        let k = 2;
+        assert_eq!(Solution::character_replacement_optimized(s, k), 4);
+    }
+
+    #[test]
+    fn test_character_replacement_optimized_example2() {
+        let s = "AABABBA".to_string();
+        let k = 1;
+        assert_eq!(Solution::character_replacement_optimized(s, k), 4);
+    }
 
     #[test]
     fn test_character_replacement_standard_example1() {
