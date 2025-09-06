@@ -1,11 +1,40 @@
-#![allow(unused)]
 use crate::linked_list::ListNode;
 
 pub struct Solution;
 
 impl Solution {
     pub fn remove_nth_from_end(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
-        todo!()
+        // Dummy node in front of head
+        let mut dummy = Box::new(ListNode {
+            val: -1,
+            next: head,
+        });
+
+        let mut slow: *mut Option<Box<ListNode>> = &mut dummy.next;
+        let mut fast = &dummy.next;
+
+        // Move fast n steps ahead
+        for _ in 0..n {
+            if let Some(f) = fast {
+                fast = &f.next;
+            }
+        }
+
+        // Move them together till fast hit null
+        while let Some(f) = fast {
+            fast = &f.next;
+            unsafe {
+                slow = &mut (*slow).as_mut().unwrap().next;
+            }
+        }
+
+        // Since fast is n steps ahead of slow, if fast is now at end, then slow is n node from the end too
+        unsafe {
+            if let Some(mut node) = (*slow).take() {
+                *slow = node.next.take();
+            }
+        }
+        dummy.next
     }
 }
 
