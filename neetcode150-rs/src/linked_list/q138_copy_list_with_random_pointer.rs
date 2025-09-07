@@ -1,4 +1,3 @@
-#![allow(unused)]
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
@@ -78,8 +77,48 @@ impl Node {
 pub struct Solution;
 
 impl Solution {
-    pub fn copy_random_list(head: Option<Rc<RefCell<Node>>>) -> Option<Rc<RefCell<Node>>> {
-        todo!()
+    pub fn copy_random_list(head: &Option<Rc<RefCell<Node>>>) -> Option<Rc<RefCell<Node>>> {
+        let Some(head_rc) = head else {
+            return None;
+        };
+
+        let mut old2copy: HashMap<*const RefCell<Node>, Rc<RefCell<Node>>> = HashMap::new();
+
+        // First pass: Build a hashmap of old node ptr to new copied node
+        let mut curr_opt = Some(head_rc.clone());
+        while let Some(curr_rc) = curr_opt {
+            let curr_ptr = Rc::as_ptr(&curr_rc);
+            let curr_ref = curr_rc.borrow();
+            let copy_rc = Rc::new(RefCell::new(Node::new(curr_ref.val)));
+
+            old2copy.insert(curr_ptr, copy_rc);
+            curr_opt = curr_ref.next.clone();
+        }
+
+        // Second pass, connect the new copied linked list with next ptr and random ptr
+        curr_opt = Some(head_rc.clone());
+        while let Some(curr_rc) = curr_opt {
+            let curr_ref = curr_rc.borrow();
+            let curr_ptr = Rc::as_ptr(&curr_rc);
+
+            if let Some(copy_rc) = old2copy.get(&curr_ptr) {
+                let mut copy_ref = copy_rc.borrow_mut();
+
+                copy_ref.next = curr_ref
+                    .next
+                    .as_ref()
+                    .map(|next_rc| old2copy[&Rc::as_ptr(next_rc)].clone());
+
+                copy_ref.random = curr_ref
+                    .random
+                    .as_ref()
+                    .map(|random_rc| old2copy[&Rc::as_ptr(random_rc)].clone());
+            }
+
+            curr_opt = curr_ref.next.clone();
+        }
+
+        old2copy.get(&Rc::as_ptr(head_rc)).cloned()
     }
 }
 
@@ -98,7 +137,7 @@ mod tests {
             (10, Some(2)),
             (1, Some(0)),
         ]);
-        let copied = Solution::copy_random_list(head.clone());
+        let copied = Solution::copy_random_list(&head);
         assert_eq!(Node::to_vec(copied), Node::to_vec(head));
     }
 
@@ -107,7 +146,7 @@ mod tests {
     #[test]
     fn test_copy_random_list_2() {
         let head = Node::from_vec(vec![(1, Some(1)), (2, Some(1))]);
-        let copied = Solution::copy_random_list(head.clone());
+        let copied = Solution::copy_random_list(&head);
         assert_eq!(Node::to_vec(copied), Node::to_vec(head));
     }
 
@@ -116,7 +155,7 @@ mod tests {
     #[test]
     fn test_copy_random_list_3() {
         let head = Node::from_vec(vec![(3, None), (3, Some(0)), (3, None)]);
-        let copied = Solution::copy_random_list(head.clone());
+        let copied = Solution::copy_random_list(&head);
         assert_eq!(Node::to_vec(copied), Node::to_vec(head));
     }
 }
