@@ -1,11 +1,51 @@
-#![allow(unused)]
 use crate::linked_list::ListNode;
 
 pub struct Solution;
 
 impl Solution {
     pub fn reverse_k_group(head: Option<Box<ListNode>>, k: i32) -> Option<Box<ListNode>> {
-        todo!()
+        if head.is_none() || k <= 1 {
+            return head;
+        }
+
+        let mut dummy = Box::new(ListNode { val: 0, next: head });
+        let mut group_prev: *mut ListNode = &mut *dummy;
+
+        loop {
+            // Find kth node
+            let kth: Option<*mut ListNode> = unsafe {
+                (0..k).try_fold(group_prev, |curr, _| {
+                    (*curr)
+                        .next
+                        .as_mut()
+                        .map(|next| &mut **next as *mut ListNode)
+                })
+            };
+
+            if let Some(kth_node) = kth {
+                // Reverse the group between group_prev.next and kth node
+                unsafe {
+                    let mut prev = (*kth_node).next.take();
+                    let mut curr = (*group_prev).next.take();
+                    let tail = curr.as_deref_mut().unwrap() as *mut ListNode; // tail after reversing the group
+
+                    for _ in 0..k {
+                        let mut node = curr.take().unwrap();
+                        curr = node.next.take();
+                        node.next = prev;
+                        prev = Some(node);
+                    }
+
+                    // Connect the reversed group to the previous group
+                    (*group_prev).next = prev;
+                    group_prev = tail;
+                }
+            } else {
+                break;
+            }
+        }
+
+        dummy.next
     }
 }
 
