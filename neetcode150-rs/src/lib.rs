@@ -48,3 +48,4 @@ pub mod sliding_window {
 }
 
 pub mod linked_list;
+pub mod trees;
