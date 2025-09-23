@@ -35,35 +35,28 @@ impl TreeNode {
     }
 
     pub fn from_vec(v: Vec<Option<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
-        if v.is_empty() {
-            return None;
-        }
+        let mut v_iter = v.into_iter();
+        match v_iter.next().flatten() {
+            Some(root_val) => {
+                let root = Rc::new(RefCell::new(TreeNode::new(root_val)));
+                let mut deque = std::collections::VecDeque::new();
+                deque.push_back(root.clone());
 
-        let mut queue = std::collections::VecDeque::new();
-        let root = Rc::new(RefCell::new(TreeNode::new(v[0].unwrap())));
-        queue.push_back(root.clone());
-
-        let mut i = 1;
-        while !queue.is_empty() {
-            let node = queue.pop_front().unwrap();
-            if i < v.len() {
-                if let Some(val) = v[i] {
-                    let left = Rc::new(RefCell::new(TreeNode::new(val)));
-                    node.borrow_mut().left = Some(left.clone());
-                    queue.push_back(left);
+                while let Some(node) = deque.pop_front() {
+                    if let Some(left_val) = v_iter.next().flatten() {
+                        let left = Rc::new(RefCell::new(TreeNode::new(left_val)));
+                        node.borrow_mut().left = Some(left.clone());
+                        deque.push_back(left);
+                    }
+                    if let Some(right_val) = v_iter.next().flatten() {
+                        let right = Rc::new(RefCell::new(TreeNode::new(right_val)));
+                        node.borrow_mut().right = Some(right.clone());
+                        deque.push_back(right);
+                    }
                 }
-                i += 1;
+                Some(root)
             }
-            if i < v.len() {
-                if let Some(val) = v[i] {
-                    let right = Rc::new(RefCell::new(TreeNode::new(val)));
-                    node.borrow_mut().right = Some(right.clone());
-                    queue.push_back(right);
-                }
-                i += 1;
-            }
+            None => None,
         }
-
-        Some(root)
     }
 }

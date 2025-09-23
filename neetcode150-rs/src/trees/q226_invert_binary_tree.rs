@@ -1,4 +1,3 @@
-#![allow(unused)]
 use crate::trees::TreeNode;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -7,7 +6,16 @@ pub struct Solution;
 
 impl Solution {
     pub fn invert_tree(root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
-        todo!()
+        if let Some(node_rc) = &root {
+            let mut node = node_rc.borrow_mut();
+
+            let left = node.left.take();
+            let right = node.right.take();
+
+            node.left = Self::invert_tree(right);
+            node.right = Self::invert_tree(left);
+        }
+        root
     }
 }
 
@@ -19,6 +27,13 @@ mod tests {
     // Example 1:
     // Input: root = [4,2,7,1,3,6,9]
     // Output: [4,7,2,9,6,3,1]
+    //
+    //        4
+    //       / \
+    //      2   7
+    //     / \ / \
+    //    1  3 6  9
+    //
     #[test]
     fn test_invert_tree_example_1() {
         let root = TreeNode::from_vec(vec![
