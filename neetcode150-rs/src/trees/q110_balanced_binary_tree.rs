@@ -1,4 +1,3 @@
-#![allow(unused)]
 use crate::trees::TreeNode;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -7,7 +6,31 @@ pub struct Solution;
 
 impl Solution {
     pub fn is_balanced(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
-        todo!()
+        // Find height of left subtree & right subtree, if they differ by <= 1, true, otherwise false
+        Self::height(root) != -1
+    }
+
+    fn height(node: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        match node {
+            Some(node_rc) => {
+                let left_height = Self::height(node_rc.borrow().left.clone());
+                if left_height == -1 {
+                    return -1;
+                }
+
+                let right_height = Self::height(node_rc.borrow().right.clone());
+                if right_height == -1 {
+                    return -1;
+                }
+
+                if (left_height - right_height).abs() > 1 {
+                    -1
+                } else {
+                    1 + left_height.max(right_height)
+                }
+            }
+            None => 0,
+        }
     }
 }
 
