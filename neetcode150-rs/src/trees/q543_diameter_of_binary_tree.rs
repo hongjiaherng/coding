@@ -6,10 +6,22 @@ pub struct Solution;
 
 impl Solution {
     pub fn diameter_of_binary_tree(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        if let Some(root_rc) = root {
-        } else {
-            0
+        // Find depth of left subtree and right subtree then add them together
+        fn height(node: Option<Rc<RefCell<TreeNode>>>, diameter: &mut i32) -> i32 {
+            match node {
+                Some(node_rc) => {
+                    let left = height(node_rc.borrow().left.clone(), diameter);
+                    let right = height(node_rc.borrow().right.clone(), diameter);
+                    *diameter = (*diameter).max(left + right);
+                    1 + left.max(right)
+                }
+                None => 0,
+            }
         }
+
+        let mut diameter = 0;
+        height(root, &mut diameter);
+        diameter
     }
 }
 
@@ -35,5 +47,48 @@ mod tests {
     fn test_diameter_of_binary_tree_example_2() {
         let root = TreeNode::from_vec(vec![Some(1), Some(2)]);
         assert_eq!(Solution::diameter_of_binary_tree(root), 1);
+    }
+
+    #[test]
+    fn test_diameter_of_binary_tree_example_3() {
+        let root = TreeNode::from_vec(vec![Some(1), Some(2), Some(3)]);
+        assert_eq!(Solution::diameter_of_binary_tree(root), 2);
+    }
+
+    #[test]
+    fn test_diameter_of_binary_tree_example_4() {
+        let root = TreeNode::from_vec(vec![
+            Some(4),
+            Some(-7),
+            Some(-3),
+            None,
+            None,
+            Some(-9),
+            Some(-3),
+            Some(9),
+            Some(-7),
+            Some(-4),
+            None,
+            Some(6),
+            None,
+            Some(-6),
+            Some(-6),
+            None,
+            None,
+            Some(0),
+            Some(6),
+            Some(5),
+            None,
+            Some(9),
+            None,
+            None,
+            Some(-1),
+            Some(-4),
+            None,
+            None,
+            None,
+            Some(-2),
+        ]);
+        assert_eq!(Solution::diameter_of_binary_tree(root), 8);
     }
 }
