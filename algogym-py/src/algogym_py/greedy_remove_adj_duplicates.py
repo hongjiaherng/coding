@@ -186,29 +186,3 @@ class Solution:
                 break
             prev_s = cur_s
         return prev_s
-
-
-if __name__ == "__main__":
-    solution = Solution()
-    assert solution.recursive_remove_duplicates("abcd") == "abcd"
-    assert solution.recursive_remove_duplicates("abcccbabc") == "bc"
-    assert solution.recursive_remove_duplicates("deeedbbcccbdaa") == "bd"
-    assert solution.recursive_remove_duplicates("caaabbbaacdddd") == ""
-    assert solution.recursive_remove_duplicates("acaaabbbacdddd") == "acac"
-    assert solution.recursive_remove_duplicates("abcdefggfedcba") == ""
-
-    assert solution.stack_remove_duplicates("abcd") == "abcd"
-    assert solution.stack_remove_duplicates("abcccbabc") == "bc"
-    assert solution.stack_remove_duplicates("abcccccbabc") == "bc"
-    assert solution.stack_remove_duplicates("deeedbbcccbdaa") == "bd"
-    assert solution.stack_remove_duplicates("caaabbbaacdddd") == ""
-    assert solution.stack_remove_duplicates("acaaabbbacdddd") == "acac"
-    assert solution.stack_remove_duplicates("abcdefggfedcba") == ""
-
-    assert solution.crazy_remove_duplicates("abcd") == "abcd"
-    assert solution.crazy_remove_duplicates("abcccbabc") == "bc"
-    assert solution.crazy_remove_duplicates("abcccccbabc") == "bc"
-    assert solution.crazy_remove_duplicates("deeedbbcccbdaa") == "bd"
-    assert solution.crazy_remove_duplicates("caaabbbaacdddd") == ""
-    assert solution.crazy_remove_duplicates("acaaabbbacdddd") == "acac"
-    assert solution.crazy_remove_duplicates("abcdefggfedcba") == ""

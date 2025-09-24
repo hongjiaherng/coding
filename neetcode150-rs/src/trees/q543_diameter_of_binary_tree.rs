@@ -1,4 +1,3 @@
-#![allow(unused)]
 use crate::trees::TreeNode;
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -7,7 +6,10 @@ pub struct Solution;
 
 impl Solution {
     pub fn diameter_of_binary_tree(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        todo!()
+        if let Some(root_rc) = root {
+        } else {
+            0
+        }
     }
 }
 
