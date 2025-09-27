@@ -1,13 +1,39 @@
-#![allow(unused)]
 use crate::trees::TreeNode;
 use std::cell::RefCell;
+use std::collections::VecDeque;
 use std::rc::Rc;
 
 pub struct Solution;
 
 impl Solution {
     pub fn level_order(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
-        todo!()
+        let mut res = Vec::new();
+        let mut deque = VecDeque::new();
+
+        if let Some(r) = root {
+            deque.push_back(r);
+        }
+
+        while !deque.is_empty() {
+            let mut level = Vec::new();
+            for _ in 0..deque.len() {
+                let node_rc = deque.pop_front().unwrap();
+                let (val, left, right) = {
+                    let node_ref = node_rc.borrow();
+                    (node_ref.val, node_ref.left.clone(), node_ref.right.clone())
+                };
+                level.push(val);
+                if let Some(left_rc) = left {
+                    deque.push_back(left_rc);
+                }
+                if let Some(right_rc) = right {
+                    deque.push_back(right_rc);
+                }
+            }
+            res.push(level);
+        }
+
+        res
     }
 }
 
